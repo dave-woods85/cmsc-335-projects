@@ -10,8 +10,8 @@ This is a class that creates a rectangle object with height, width, and area.
 
  */
 public class Rectangle extends TwoDimensionalShape{
-    private double width = 0;
-    private double height = 0;
+    private double width;
+    private double height;
 
     Rectangle(){
         // default size
@@ -46,7 +46,7 @@ public class Rectangle extends TwoDimensionalShape{
         else {
             System.out.println("Please enter a valid integer:");
             setParameters();}
-        if (Project1.userContinue()){
+        if (Project1.userContinue("rectangle")){
             setParameters();
         }
         else { Project1.runMenu(); }

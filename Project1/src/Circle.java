@@ -32,7 +32,7 @@ public class Circle extends TwoDimensionalShape{
             System.out.println("Please enter a valid integer:");
             setParameters();
         }
-        if (Project1.userContinue()) {
+        if (Project1.userContinue("circle")) {
             setParameters();
         } else {
             Project1.runMenu();

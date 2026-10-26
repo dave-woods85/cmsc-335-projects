@@ -13,9 +13,9 @@ for an equilateral triangle detected.
 
 public class Triangle extends TwoDimensionalShape{
     // fields for the sides
-    private double side1 = 0;
-    private double side2 = 0;
-    private double side3 = 0;
+    private double side1;
+    private double side2;
+    private double side3;
 
     //Default
     Triangle() {
@@ -69,7 +69,7 @@ public class Triangle extends TwoDimensionalShape{
             setParameters();
         }
         // Check for retry
-        if (Project1.userContinue()) {
+        if (Project1.userContinue("triangle")) {
             setParameters();
         } else { // Return to main menu if no retry
             Project1.runMenu();

@@ -28,9 +28,9 @@ public class Project1 {
                 """);
 
         // Get input and interpret
-        if (scanner.hasNextInt()){
+        if (scanner.hasNextInt()){ // Check input
             int choice = scanner.nextInt();
-            switch (choice){
+            switch (choice){ // Menu options
                 case 1: Square.setParameters();
                 case 2: Rectangle.setParameters();
                 case 3: Circle.setParameters();
@@ -53,35 +53,32 @@ public class Project1 {
             }
 
         }
-        else {
+        else { // Invalid input
             System.out.println("Please enter a valid selection [1-10]:");
             runMenu();
         }
 
-        // Interpret input and advance menu
-
     }
-    public static boolean userContinue(){
+    // userContinue asks the user if they want to make another of the same shape, or go back to menu
+    public static boolean userContinue(String shape){
         System.out.println("Do you want to make another " +
-                // Get the calling class name to specify shape
-                Thread.currentThread().getStackTrace()[2].getClassName() +
-                "?: [Y or N]");
+                shape + "?: [Y or N]");
         if (scanner.hasNext()){
             String choice = scanner.next();
-            if (choice.matches("[Yy]")){
+            if (choice.matches("[Yy]")){ // regex for Y or y
                 return true;
             }
-            else if (choice.matches("[Nn]")) {
+            else if (choice.matches("[Nn]")) { // regex for N or n
                 return false;
             }
-            else {
+            else { // Invalid input
                 System.out.println("Please enter Y or N:");
-                return userContinue();
+                return userContinue(shape);
             }
         }
         else {
             System.out.println("Please enter Y or N:");
-            return userContinue();
+            return userContinue(shape);
         }
 
     }

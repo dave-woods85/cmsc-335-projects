@@ -10,7 +10,7 @@ This is a class that creates a square object with a side length and area.
 
  */
 public class Square extends TwoDimensionalShape{
-    private double side = 0;
+    private double side;
 
     Square(){
         // default size
@@ -32,7 +32,7 @@ public class Square extends TwoDimensionalShape{
         else {
             System.out.println("Please enter a valid integer:");
             setParameters();}
-        if (Project1.userContinue()){
+        if (Project1.userContinue("square")){
             setParameters();
         }
         else { Project1.runMenu(); }

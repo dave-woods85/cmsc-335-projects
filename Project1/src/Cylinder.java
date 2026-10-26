@@ -44,7 +44,7 @@ public class Cylinder extends ThreeDimensionalShape{
             System.out.println("Please enter a valid integer:");
             setParameters();
         }
-        if (Project1.userContinue()) { //check for retry
+        if (Project1.userContinue("cylinder")) { //check for retry
             setParameters();
         } else { // Return to main menu
             Project1.runMenu();
