@@ -10,7 +10,8 @@ This is a class that creates a square object with a side length and area.
 
  */
 public class Square extends TwoDimensionalShape{
-    double side = 0;
+    private double side = 0;
+
     Square(){
         // default size
         this.side = 1;
@@ -20,20 +21,36 @@ public class Square extends TwoDimensionalShape{
         this.side = side;
     }
 
-    public static void getParameters(){
+    public static void setParameters(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a length for the sides of the square: ");
         if (scanner.hasNextInt()){
             Square s = new Square(scanner.nextInt());
-            System.out.println("The sides are: " + s.side + "\n" +
+            System.out.println("The sides are: " + s.getSide() + "\n" +
                     "The area is: " + s.getArea());
-
         }
-        else { System.out.println("Please enter a valid integer"); }
+        else {
+            System.out.println("Please enter a valid integer:");
+            setParameters();}
+        if (Project1.userContinue()){
+            setParameters();
+        }
+        else { Project1.runMenu(); }
+
+
     }
 
     @Override
     public double getArea() {
         return side * side;
+    }
+
+    // Getter and setter methods
+    public void setSide(int side){
+        this.side = side;
+    }
+
+    public double getSide(){
+        return this.side;
     }
 }

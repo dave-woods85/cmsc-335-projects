@@ -5,7 +5,7 @@ CMSC335
 24 Oct 2026
 Project 1
 
-This is an interface for all shape objects in Project 1
+This is a class for all shape objects in Project 1
 
  */
 
