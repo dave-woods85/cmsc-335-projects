@@ -5,6 +5,7 @@ David Woods
 CMSC335
 24 Oct 2026
 Project 1
+Circle.java
 
 This is a class that creates a circle object with radius and area.
 

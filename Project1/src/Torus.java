@@ -5,6 +5,7 @@ David Woods
 CMSC335
 24 Oct 2026
 Project 1
+Torus.java
 
 This is a class that creates a torus object with a major radius, minor radius, and volume.
 

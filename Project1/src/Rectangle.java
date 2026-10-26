@@ -5,6 +5,7 @@ David Woods
 CMSC335
 24 Oct 2026
 Project 1
+Rectangle.java
 
 This is a class that creates a rectangle object with height, width, and area.
 

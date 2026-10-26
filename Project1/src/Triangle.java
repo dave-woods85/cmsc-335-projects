@@ -5,6 +5,7 @@ David Woods
 CMSC335
 24 Oct 2026
 Project 1
+Triangle.java
 
 This is a class that creates a triangle object with 3 sides and area. There is a special printout
 for an equilateral triangle detected.

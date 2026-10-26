@@ -5,6 +5,7 @@ David Woods
 CMSC335
 24 Oct 2026
 Project 1
+Square.java
 
 This is a class that creates a square object with a side length and area.
 
