@@ -10,17 +10,17 @@ This is a class that creates a circle object with radius and area.
 
  */
 public class Circle extends TwoDimensionalShape{
-    private double radius = 0;
+    private double radius;
 
     // default circle
     Circle() {
         this.radius = 1;
     }
-
+    //Specified radius
     Circle(double radius) {
         this.radius = radius;
     }
-
+    // Circle setParameters takes an input for radius
     public static void setParameters() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a radius for the circle: ");
@@ -42,7 +42,8 @@ public class Circle extends TwoDimensionalShape{
 
     @Override
     public double getArea(){
-        return Math.pow(Math.PI * radius, 2);
+        //Formula for area of a circle PI * r^2
+        return Math.PI * Math.pow(radius, 2);
     }
 
     // Getter and setter methods

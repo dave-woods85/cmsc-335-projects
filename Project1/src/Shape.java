@@ -1,4 +1,3 @@
-
 /*
 David Woods
 CMSC335
@@ -12,8 +11,12 @@ This is a class for all shape objects in Project 1
 public class Shape {
     int numberOfDimensions = 0;
 
-    void setNumberOfDimensions(int dimension){
+    // Getter and setter methods
+    public void setNumberOfDimensions(int dimension){
         this.numberOfDimensions = dimension;
     }
 
+    public int getNumberOfDimensions() {
+        return numberOfDimensions;
+    }
 }

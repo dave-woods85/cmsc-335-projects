@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /*
@@ -34,13 +35,18 @@ public class Project1 {
                 case 2: Rectangle.setParameters();
                 case 3: Circle.setParameters();
                 case 4: Triangle.setParameters();
-                case 5: ;
-                case 6: ;
-                case 7: ;
-                case 8: ;
-                case 9: ;
+                case 5: Sphere.setParameters();
+                case 6: Cube.setParameters();
+                case 7: Cone.setParameters();
+                case 8: Cylinder.setParameters();
+                case 9: Torus.setParameters();
                 case 10: {
-                    System.out.println("Thank you for using the Shape Maker!");
+                    LocalDateTime today = LocalDateTime.now();
+                    System.out.println("Thank you for using the Shape Maker!" +
+                            "\nToday is " + today.getDayOfWeek() + ", " +
+                            today.getMonth() + " " + today.getDayOfMonth() +
+                            " and the time is " + today.getHour() + ":" +
+                            today.getMinute());
                     System.exit(1);
                 }
                 default: break;
@@ -56,7 +62,10 @@ public class Project1 {
 
     }
     public static boolean userContinue(){
-        System.out.println("Do you want to make another?: [Y or N]");
+        System.out.println("Do you want to make another " +
+                // Get the calling class name to specify shape
+                Thread.currentThread().getStackTrace()[2].getClassName() +
+                "?: [Y or N]");
         if (scanner.hasNext()){
             String choice = scanner.next();
             if (choice.matches("[Yy]")){
