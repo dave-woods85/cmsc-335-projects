@@ -6,11 +6,13 @@ CMSC335
 24 Oct 2026
 Project 1
 
-This is a class that creates a triangle object with 3 sides and area.
+This is a class that creates a triangle object with 3 sides and area. There is a special printout
+for an equilateral triangle detected.
 
  */
 
 public class Triangle extends TwoDimensionalShape{
+    // fields for the sides
     private double side1 = 0;
     private double side2 = 0;
     private double side3 = 0;
@@ -21,16 +23,16 @@ public class Triangle extends TwoDimensionalShape{
         this.side2 = 1;
         this.side3 = 1;
     }
-
+    // Constructor for 3 inputs
     Triangle(double side1, double side2, double side3) {
         this.side1 = side1;
         this.side2 = side2;
         this.side3 = side3;
     }
 
+    // Triangle version of setParameters runs through the specification of the 3 sides
     public static void setParameters() {
         Scanner scanner = new Scanner(System.in);
-        boolean isEqual = false;
         // Prompt for measurement
         System.out.println("Enter the length of the first side: ");
         if (scanner.hasNextInt()) { // Check input
@@ -41,26 +43,35 @@ public class Triangle extends TwoDimensionalShape{
                 System.out.println("Enter the length of the third side: ");
                 if (scanner.hasNextInt()) { // Check input
                     Triangle t = new Triangle(tempSide1, tempSide2, scanner.nextInt());
-                    System.out.println("Side 1: " + t.getSide1() +
-                            "\nSide 2: " + t.getSide2() +
-                            "\nSide 3: " + t.getSide3() +
-                            "\nArea: " + t.getArea());
+                    //Special printout if it's an equilateral
+                    if (t.getSide1() == t.getSide2() && t.getSide1() == t.getSide3()){
+                        System.out.println("This is an equilateral triangle!" +
+                                "\nAll sides are: " + t.getSide1() +
+                                "\nArea: " + t.getArea());
+                    }
+                    else { // Not equilateral
+                        System.out.println("Side 1: " + t.getSide1() +
+                                "\nSide 2: " + t.getSide2() +
+                                "\nSide 3: " + t.getSide3() +
+                                "\nArea: " + t.getArea());
+                    }
 
-                } else {
+                } else { // Rerun setParameters on invalid input
                     System.out.println("Please enter a valid integer:");
                     setParameters();
                 }
-            } else {
+            } else { // Rerun setParameters on invalid input
                 System.out.println("Please enter a valid integer:");
                 setParameters();
             }
-        } else {
+        } else { // Rerun setParameters on invalid input
             System.out.println("Please enter a valid integer:");
             setParameters();
         }
+        // Check for retry
         if (Project1.userContinue()) {
             setParameters();
-        } else {
+        } else { // Return to main menu if no retry
             Project1.runMenu();
         }
     }
