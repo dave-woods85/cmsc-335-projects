@@ -29,7 +29,7 @@ public class Sphere extends ThreeDimensionalShape{
             Sphere s = new Sphere(scanner.nextInt());
             System.out.println("The radius is: " + s.getRadius() +
                     "\nThe volume is: " + s.getVolume());
-        } else { // Error checking
+        } else { // invalid input
             System.out.println("Please enter a valid integer:");
             setParameters();
         }

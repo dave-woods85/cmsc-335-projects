@@ -25,18 +25,18 @@ public class Cube extends ThreeDimensionalShape{
     public static void setParameters(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a length for the sides of the cube: ");
-        if (scanner.hasNextInt()){
+        if (scanner.hasNextInt()){ // check input
             Cube c = new Cube(scanner.nextInt());
             System.out.println("The sides are: " + c.getSide() + "\n" +
                     "The volume is: " + c.getVolume());
         }
-        else {
+        else { // invalid input
             System.out.println("Please enter a valid integer:");
             setParameters();}
-        if (Project1.retry("cube")){
+        if (Project1.retry("cube")){ // check for retry
             setParameters();
         }
-        else { Project1.runMenu(); }
+        else { Project1.runMenu(); } // return to main menu
     }
 
     @Override

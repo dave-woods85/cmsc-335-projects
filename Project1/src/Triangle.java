@@ -30,7 +30,7 @@ public class Triangle extends TwoDimensionalShape{
         this.side3 = side3;
     }
 
-    // Triangle version of setParameters runs through the specification of the 3 sides
+    // Triangle setParameters takes 3 side values
     public static void setParameters() {
         Scanner scanner = new Scanner(System.in);
         // Prompt for measurement
