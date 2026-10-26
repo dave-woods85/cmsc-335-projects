@@ -23,7 +23,7 @@ public class Triangle extends TwoDimensionalShape{
         this.side2 = 1;
         this.side3 = 1;
     }
-    // Constructor for 3 inputs
+    // Specified sides
     Triangle(double side1, double side2, double side3) {
         this.side1 = side1;
         this.side2 = side2;
@@ -69,7 +69,7 @@ public class Triangle extends TwoDimensionalShape{
             setParameters();
         }
         // Check for retry
-        if (Project1.userContinue("triangle")) {
+        if (Project1.retry("triangle")) {
             setParameters();
         } else { // Return to main menu if no retry
             Project1.runMenu();

@@ -13,17 +13,19 @@ public class Rectangle extends TwoDimensionalShape{
     private double width;
     private double height;
 
+    //Default
     Rectangle(){
-        // default size
         this.height = 1;
         this.width = 1;
     }
 
+    // Specified height and width
     Rectangle(double width, double height){
         this.width = width;
         this.height = height;
     }
 
+    // Rectangle setParameters() takes a width and height
     public static void setParameters(){
         Scanner scanner = new Scanner(System.in);
         // Prompt for measurement
@@ -38,24 +40,25 @@ public class Rectangle extends TwoDimensionalShape{
                         "\nThe height is: " + r.getHeight() +
                         "\nThe area is: " + r.getArea());
             }
-            else {
+            else { // invalid input
                 System.out.println("Please enter a valid integer:");
                 setParameters();
             }
         }
-        else {
+        else { //invalid input
             System.out.println("Please enter a valid integer:");
             setParameters();}
-        if (Project1.userContinue("rectangle")){
+        if (Project1.retry("rectangle")){ // check for retry
             setParameters();
         }
-        else { Project1.runMenu(); }
+        else { Project1.runMenu(); } // return to main menu
 
 
     }
 
     @Override
     public double getArea() {
+        //Formula for area of a rectangle height * width
         return width * height;
     }
 

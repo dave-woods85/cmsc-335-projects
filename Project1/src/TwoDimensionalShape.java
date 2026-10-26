@@ -8,7 +8,7 @@ This is a class for all 2-D shape objects in Project 1
 
  */
 public class TwoDimensionalShape extends Shape{
-    double area = 0;
+    double area;
 
     TwoDimensionalShape(){
         this.setNumberOfDimensions(2);

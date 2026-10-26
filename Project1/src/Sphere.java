@@ -33,7 +33,7 @@ public class Sphere extends ThreeDimensionalShape{
             System.out.println("Please enter a valid integer:");
             setParameters();
         }
-        if (Project1.userContinue("sphere")) { // Check for retry
+        if (Project1.retry("sphere")) { // Check for retry
             setParameters();
         } else { // Exit to main menu
             Project1.runMenu();

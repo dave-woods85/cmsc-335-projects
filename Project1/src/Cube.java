@@ -33,7 +33,7 @@ public class Cube extends ThreeDimensionalShape{
         else {
             System.out.println("Please enter a valid integer:");
             setParameters();}
-        if (Project1.userContinue("cube")){
+        if (Project1.retry("cube")){
             setParameters();
         }
         else { Project1.runMenu(); }

@@ -24,18 +24,18 @@ public class Circle extends TwoDimensionalShape{
     public static void setParameters() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a radius for the circle: ");
-        if (scanner.hasNextInt()) {
+        if (scanner.hasNextInt()) { // check input
             Circle c = new Circle(scanner.nextInt());
             System.out.println("The radius is: " + c.getRadius() +
                     "\nThe area is: " + c.getArea());
-        } else {
+        } else { // invalid input
             System.out.println("Please enter a valid integer:");
             setParameters();
         }
-        if (Project1.userContinue("circle")) {
+        if (Project1.retry("circle")) { // check for retry
             setParameters();
         } else {
-            Project1.runMenu();
+            Project1.runMenu(); // return to main menu
         }
 
     }

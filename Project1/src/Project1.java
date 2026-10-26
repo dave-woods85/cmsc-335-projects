@@ -59,11 +59,11 @@ public class Project1 {
         }
 
     }
-    // userContinue asks the user if they want to make another of the same shape, or go back to menu
-    public static boolean userContinue(String shape){
+    // retry() asks the user if they want to make another of the same shape, or go back to menu
+    public static boolean retry(String shape){
         System.out.println("Do you want to make another " +
                 shape + "?: [Y or N]");
-        if (scanner.hasNext()){
+        if (scanner.hasNext()){ // check input
             String choice = scanner.next();
             if (choice.matches("[Yy]")){ // regex for Y or y
                 return true;
@@ -73,12 +73,12 @@ public class Project1 {
             }
             else { // Invalid input
                 System.out.println("Please enter Y or N:");
-                return userContinue(shape);
+                return retry(shape);
             }
         }
-        else {
+        else { // invalid input
             System.out.println("Please enter Y or N:");
-            return userContinue(shape);
+            return retry(shape);
         }
 
     }
