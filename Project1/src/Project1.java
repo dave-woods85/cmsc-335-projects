@@ -13,12 +13,12 @@ input parameters for that shape, and find the area (2D) or volume (3D).
 
  */
 public class Project1 {
-    static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         runMenu();
     }
 
     public static void runMenu(){    // Create a menu system and prompt for input
+        Scanner scanner = new Scanner(System.in);
         System.out.println("""
                 Select from the menu below by inputting the corresponding number:
                 1. Construct a Square       6. Construct a Cube
@@ -62,6 +62,7 @@ public class Project1 {
     }
     // retry() asks the user if they want to make another of the same shape, or go back to menu
     public static boolean retry(String shape){
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Do you want to make another " +
                 shape + "?: [Y or N]");
         if (scanner.hasNext()){ // check input
