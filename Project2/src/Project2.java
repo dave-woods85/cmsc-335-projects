@@ -1,11 +1,6 @@
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -16,13 +11,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.MeshView;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-import javax.swing.plaf.basic.BasicDesktopIconUI;
-import java.awt.*;
 import java.io.File;
-import java.sql.Array;
 
 public class Project2 extends Application{
 
@@ -85,6 +76,7 @@ public class Project2 extends Application{
             tb.setMaxSize(80,80);
             tb.setPrefSize(80, 80);
         }
+        buttonGroup.selectToggle(circleButton);
 
         // Create a Shape Options Window
         TitledPane shapeOptionsPane = new TitledPane();
@@ -114,6 +106,10 @@ public class Project2 extends Application{
         Label att3 = new Label("Attribute 3");
         Label att4 = new Label("Attribute 4");
         Label lbColor = new Label("Shape Color");
+        tfAtt1.setTextFormatter(textFormat());
+        tfAtt2.setTextFormatter(textFormat());
+        tfAtt3.setTextFormatter(textFormat());
+        tfAtt4.setTextFormatter(textFormat());
         shapeOptions.addRow(0, att1, tfAtt1);
         shapeOptions.addRow(1, att2, tfAtt2);
         shapeOptions.addRow(2, att3, tfAtt3);
@@ -123,8 +119,10 @@ public class Project2 extends Application{
                 "Black", "Red", "Blue", "Green", "Yellow",
                 "Orange" , "Purple", "Brown", "White");
         cbColor.setMaxWidth(90);
+        cbColor.setValue("Black");
         shapeOptions.addRow(4,lbColor, cbColor);
         Button btnApply = new Button("APPLY!");
+        btnApply.setPrefSize(100, 50);
         shapeOptions.add(btnApply, 1, 5);
 
         // Create a display window for the shape drawing
@@ -143,7 +141,12 @@ public class Project2 extends Application{
         GridPane.setHgrow(shapeDetailsPane, Priority.ALWAYS);
         GridPane.setVgrow(shapeDetailsPane, Priority.ALWAYS);
         TextArea shapeDetails = new TextArea();
-        shapeDetails.setText("Details of the custom shape will appear here.");
+        shapeDetails.setWrapText(true);
+        shapeDetails.setFont(new Font(20));
+        shapeDetails.setText("""
+                Welcome to the Shape Maker!
+                Please select a shape from the grid and press "APPLY!"
+                """);
         shapeDetails.setEditable(false);
         shapeDetailsPane.setCollapsible(false);
         pane.add(shapeDetailsPane, 1, 1);
@@ -170,73 +173,240 @@ public class Project2 extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // BUTTONS! For shape selection
-        buttonGroup.selectedToggleProperty().addListener(
-                (obs, oldToggle,newToggle) -> {
-                    if (newToggle == null) {
+        // BUTTONS! For shape selection and applying attributes
+        btnApply.setOnAction(
+                (ActionEvent e) -> {
+                    tfAtt1.setDisable(false);
+                    tfAtt2.setDisable(false);
+                    tfAtt3.setDisable(false);
+                    tfAtt4.setDisable(false);
+                    cbColor.setDisable(false);
+                    if (e == null) {
                         shapeDetails.setText("Select a shape from the grid to see details");
                     }
                     else{
                         switch (buttonGroup.getSelectedToggle().getUserData().toString()) {
 
                             case "Cone" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/cone.png");
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/cone.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);
                                 imageView.setPreserveRatio(true);
                                 displayArea.setContent(imageView);
-                                Cone cone = new Cone();
+                                att1.setText("Radius");
+                                att2.setText("Height");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                if (tfAtt2.getText().isEmpty()){
+                                    tfAtt2.setText("100");
+                                }
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(true);
+                                Cone cone = new Cone(Integer.parseInt(tfAtt1.getText()),Integer.parseInt(tfAtt2.getText()));
                                 cone.draw("Cone");
+                                shapeDetails.setText("This is a cone with radius " + cone.getRadius() +
+                                        " and height " + cone.getHeight() + " with a volume of " +
+                                        (Math.round(cone.getVolume())*100.0)/100.0 );
                             }
                             case "Cube" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/cube.png");
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/cube.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);
                                 imageView.setPreserveRatio(true);
                                 displayArea.setContent(imageView);
+                                att1.setText("Side");
+                                att2.setText("");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                tfAtt2.setDisable(true);
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(true);
+                                Cube cube = new Cube(Integer.parseInt(tfAtt1.getText()));
+                                shapeDetails.setText("This is a cube with sides " + cube.getSide() +
+                                        " and a volume of " +
+                                        (Math.round(cube.getVolume())*100.0)/100.0 );
                             }
                             case "Sphere" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/sphere.png");
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/sphere.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);
                                 imageView.setPreserveRatio(true);
                                 displayArea.setContent(imageView);
+                                att1.setText("Radius");
+                                att2.setText("");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                tfAtt2.setDisable(true);
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(true);
+                                Sphere sphere = new Sphere(Integer.parseInt(tfAtt1.getText()));
+                                shapeDetails.setText("This is a sphere with radius " + sphere.getRadius() +
+                                        " and a volume of " +
+                                        (Math.round(sphere.getVolume())*100.0)/100.0 );
                             }
                             case "Cylinder" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/cylinder.png");
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/cylinder.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(150);
                                 imageView.setPreserveRatio(true);
                                 displayArea.setContent(imageView);
+                                att1.setText("Radius");
+                                att2.setText("Height");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                if (tfAtt2.getText().isEmpty()){
+                                    tfAtt2.setText("100");
+                                }
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(true);
+                                Cylinder cylinder = new Cylinder(Integer.parseInt(tfAtt1.getText()),
+                                        Integer.parseInt(tfAtt2.getText()));
+                                shapeDetails.setText("This is a cylinder with radius " + cylinder.getRadius() +
+                                        "and height " + cylinder.getHeight() + " with a volume of " +
+                                        (Math.round(cylinder.getVolume())*100.0)/100.0 );
                             }
                             case "Torus" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/torus.png");
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/torus.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);
                                 imageView.setPreserveRatio(true);
                                 displayArea.setContent(imageView);
+                                att1.setText("Major Radius");
+                                att2.setText("Minor Radius");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                if (tfAtt2.getText().isEmpty()){
+                                    tfAtt2.setText("50");
+                                }
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(true);
+                                Torus torus = new Torus(Integer.parseInt(tfAtt1.getText()),
+                                        Integer.parseInt(tfAtt2.getText()));
+                                shapeDetails.setText("This is a torus with major radius of " + torus.getMajorRadius() +
+                                       " and minor radius of " + torus.getMinorRadius() + " with a volume of " +
+                                        (Math.round(torus.getVolume())*100.0)/100.0 );
                             }
                             case "Square" -> {
-                                displayArea.setContent(new javafx.scene.shape.Rectangle(100, 100));
+                                att1.setText("Side");
+                                att2.setText("");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                tfAtt2.setDisable(true);
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(false);
+                                Square square = new Square(Integer.parseInt(tfAtt1.getText()));
+                                javafx.scene.shape.Rectangle squareFX = new javafx.scene.shape.Rectangle(
+                                        Integer.parseInt(tfAtt1.getText()),
+                                        Integer.parseInt(tfAtt1.getText()));
+                                squareFX.setFill(getColor(cbColor.getValue()));
+                                shapeDetails.setText("This is a square with sides of " + square.getSide() +
+                                      " with an area of " +
+                                        (Math.round(square.getArea())*100.0)/100.0 );
+                                displayArea.setContent(squareFX);
 
                             }
                             case "Circle" -> {
-                                displayArea.setContent(new javafx.scene.shape.Circle(50));
+                                att1.setText("Radius");
+                                att2.setText("");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                tfAtt2.setDisable(true);
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(false);
+                                Circle circle = new Circle(Integer.parseInt(tfAtt1.getText()));
+                                javafx.scene.shape.Circle circleFX = new javafx.scene.shape.Circle(
+                                        Integer.parseInt(tfAtt1.getText()));
+                                circleFX.setFill(getColor(cbColor.getValue()));
+                                shapeDetails.setText("This is a circle with radius of " + circle.getRadius() +
+                                        " with an area of " +
+                                        (Math.round(circle.getArea())*100.0)/100.0 );
+                                displayArea.setContent(circleFX);
                             }
                             case "Rectangle" -> {
-                                displayArea.setContent(new javafx.scene.shape.Rectangle(200, 100));
+                                att1.setText("Width");
+                                att2.setText("Height");
+                                att3.setText("");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                if (tfAtt2.getText().isEmpty()){
+                                    tfAtt2.setText("100");
+                                }
+                                tfAtt3.setDisable(true);
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(false);
+                                Rectangle rectangle = new Rectangle(Integer.parseInt(tfAtt1.getText()),
+                                        Integer.parseInt(tfAtt2.getText()));
+                                javafx.scene.shape.Rectangle rectangleFX = new javafx.scene.shape.Rectangle(
+                                        Integer.parseInt(tfAtt1.getText()),
+                                        Integer.parseInt(tfAtt2.getText()));
+                                rectangleFX.setFill(getColor(cbColor.getValue()));
+                                shapeDetails.setText("This is a rectangle with width of " + rectangle.getWidth() +
+                                       "and height of " + rectangle.getHeight() + " with an area of " +
+                                        (Math.round(rectangle.getArea())*100.0)/100.0 );
+                                displayArea.setContent(rectangleFX);
 
                             }
                             case "Triangle" -> {
-                                displayArea.setContent(new javafx.scene.shape.Polygon(
-                                        150, 100,
-                                        100, 200,
-                                        200, 200));
+                                att1.setText("Side 1");
+                                att2.setText("Side 2");
+                                att3.setText("Side 3");
+                                att4.setText("");
+                                if (tfAtt1.getText().isEmpty()) {
+                                    tfAtt1.setText("50");
+                                }
+                                if (tfAtt2.getText().isEmpty()){
+                                    tfAtt2.setText("50");
+                                }
+                                if (tfAtt3.getText().isEmpty()){
+                                    tfAtt3.setText("50");
+                                }
+                                tfAtt4.setDisable(true);
+                                cbColor.setDisable(false);
+                                Triangle triangle = new Triangle(Integer.parseInt(tfAtt1.getText()),
+                                        Integer.parseInt(tfAtt2.getText()),
+                                        Integer.parseInt(tfAtt3.getText()));
+                                javafx.scene.shape.Polygon triangleFX = new javafx.scene.shape.Polygon(
+                                        triangle.getVertices());
+                                triangleFX.setFill(getColor(cbColor.getValue()));
+                                shapeDetails.setText("This is a triangle with sides of " + triangle.getSide1() + ", "
+                                         + triangle.getSide2() + ", and " + triangle.getSide3() + " with an area of " +
+                                        (Math.round(triangle.getArea())*100.0)/100.0 );
+                                displayArea.setContent(triangleFX);
                             }
                             default -> {
                                 shapeDetails.setText("Please select a Shape.");
@@ -246,15 +416,59 @@ public class Project2 extends Application{
                 }
         );
 
-        // Apply button logic
-        btnApply.setOnAction((ActionEvent e) -> {
-
-
-
-        });
 
 
     }
+    public Color getColor(String color) {
+        switch (color) {
+            case "White" -> {
+                return Color.WHITE;
+            }
+            case "Purple" -> {
+                return Color.PURPLE;
+            }
+            case "Blue" -> {
+                return Color.BLUE;
+            }
+            case "Orange" -> {
+                return Color.ORANGE;
+            }
+            case "Yellow" -> {
+                return Color.YELLOW;
+            }
+            case "Green" -> {
+                return Color.GREEN;
+            }
+            case "Red" -> {
+                return Color.RED;
+            }
+            case "Brown" -> {
+                return Color.BROWN;
+            }
+            default -> {
+                return Color.BLACK;
+            }
+        }
+    }
+    // Text formatter that restricts text fields to digits only
+    public TextFormatter<String> textFormat() {
+        return new TextFormatter<>(change -> {
+
+            String textBuffer = change.getControlNewText();
+
+            if (textBuffer.length() > 5) {
+                return null;
+            }
+            //Limits input to digits
+            if (textBuffer.matches("[0-9]*")) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+    }
+
+
 
 
 

@@ -77,13 +77,31 @@ public class Triangle extends TwoDimensionalShape{
         }
     }
 
+    public double[] getVertices(){
+        // variables for the x,y points for the vertices
+        double xA, xB, xC, yA, yB, yC;
+        // Vertex A will start at 0,0
+        xA = 0;
+        yA = 0;
+        //Vertex B is based off A
+        xB = side3;
+        yB = 0;
+
+        // Law of Cosines to find the final vertex
+        xC = (Math.pow(side1, 2) + Math.pow(side3, 2) - Math.pow(side2, 2)) / (2 * side3);
+        yC = -Math.sqrt(Math.pow(side1, 2) - Math.pow(xC, 2)); // Negative to invert it
+
+
+        return new double[]{xA, yA, xB, yB, xC, yC};
+    }
+
     @Override
     public double getArea(){
         // Formula for area of a triangle A = SQRT of s(s - a)(s - b)(s - c)
         // s = semiPerimeter (a + b + c) / 2
         double s = (side1 + side2 + side3) / 2;
         return Math.sqrt(s * (s - side1) * (s - side2) *
-                s - side3);
+                (s - side3));
     }
 
     // Getter and setter methods
