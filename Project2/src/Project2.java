@@ -202,7 +202,7 @@ public class Project2 extends Application{
                     else{ // Instructions for each shape selected
                         switch (buttonGroup.getSelectedToggle().getUserData().toString()) {
 
-                            case "Cone" -> { // Uses an image file
+                            case "Cone" -> { // Uses an image file instead of 3D shape
                                 File file = new File(fileDir + "/Project2/src/images/cone.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
@@ -229,7 +229,7 @@ public class Project2 extends Application{
                                         (Math.round(cone.getVolume())*100.0)/100.0 );
 
                             }
-                            case "Cube" -> {
+                            case "Cube" -> { // Uses an image file instead of 3D shape
                                 File file = new File(fileDir + "/Project2/src/images/cube.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
@@ -252,7 +252,7 @@ public class Project2 extends Application{
                                         " and a volume of " +
                                         (Math.round(cube.getVolume())*100.0)/100.0 );
                             }
-                            case "Sphere" -> {
+                            case "Sphere" -> { // Uses an image file instead of 3D shape
                                 File file = new File(fileDir + "/Project2/src/images/sphere.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
@@ -275,7 +275,7 @@ public class Project2 extends Application{
                                         " and a volume of " +
                                         (Math.round(sphere.getVolume())*100.0)/100.0 );
                             }
-                            case "Cylinder" -> {
+                            case "Cylinder" -> { // Uses an image file instead of 3D shape
                                 File file = new File(fileDir + "/Project2/src/images/cylinder.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
@@ -301,7 +301,7 @@ public class Project2 extends Application{
                                         "and height " + cylinder.getHeight() + " with a volume of " +
                                         (Math.round(cylinder.getVolume())*100.0)/100.0 );
                             }
-                            case "Torus" -> {
+                            case "Torus" -> { // Uses an image file instead of 3D shape
                                 File file = new File(fileDir + "/Project2/src/images/torus.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
