@@ -29,7 +29,7 @@ The directory for each image file will need to be updated to your own directory.
  */
 public class Project2 extends Application{
     // Correct the file directory for each user
-    String fileDir = System.getProperty("user.dir");
+    private final String fileDir = System.getProperty("user.dir");
 
     //Setup for GUI, buttons and events
     public void start(Stage primaryStage) {
