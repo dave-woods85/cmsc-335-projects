@@ -392,7 +392,7 @@ public class Project2 extends Application{
                                         Integer.parseInt(tfAtt2.getText()));
                                 rectangleFX.setFill(getColor(cbColor.getValue()));
                                 shapeDetails.setText("This is a rectangle with width of " + rectangle.getWidth() +
-                                       "and height of " + rectangle.getHeight() + " with an area of " +
+                                       " and height of " + rectangle.getHeight() + " with an area of " +
                                         (Math.round(rectangle.getArea())*100.0)/100.0 );
                                 displayArea.setContent(rectangleFX);
 
