@@ -1,16 +1,27 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.MeshView;
 import javafx.stage.Stage;
 
 import javax.swing.plaf.basic.BasicDesktopIconUI;
+import java.awt.*;
+import java.io.File;
 import java.sql.Array;
 
 public class Project2 extends Application{
@@ -20,7 +31,7 @@ public class Project2 extends Application{
 
         //Create a grid Pane
         GridPane pane = new GridPane();
-        pane.setPadding(new Insets(10));
+        pane.setPadding(new Insets(0));
         pane.setPrefSize(800, 500);
         pane.setMinSize(800, 500);
         pane.setMaxSize(800, 500);
@@ -45,19 +56,28 @@ public class Project2 extends Application{
 
         // Create Shape buttons
         ToggleButton circleButton = new ToggleButton("CIRCLE");
+        circleButton.setUserData("Circle");
         ToggleButton coneButton = new ToggleButton("CONE");
+        coneButton.setUserData("Cone");
         ToggleButton cubeButton = new ToggleButton("CUBE");
+        cubeButton.setUserData("Cube");
         ToggleButton cylinderButton = new ToggleButton("CYLINDER");
+        cylinderButton.setUserData("Cylinder");
         ToggleButton squareButton = new ToggleButton("SQUARE");
+        squareButton.setUserData("Square");
         ToggleButton rectangleButton = new ToggleButton("RECTANGLE");
+        rectangleButton.setUserData("Rectangle");
         ToggleButton sphereButton = new ToggleButton("SPHERE");
+        sphereButton.setUserData("Sphere");
         ToggleButton triangleButton = new ToggleButton("TRIANGLE");
+        triangleButton.setUserData("Triangle");
         ToggleButton torusButton = new ToggleButton("TORUS");
+        torusButton.setUserData("Torus");
         ToggleButton[] toggleButtons = {circleButton, coneButton,cubeButton, cylinderButton, squareButton,
         rectangleButton, sphereButton, triangleButton, torusButton};
 
         // Group toggle buttons so only one button can be pressed at a time and resize them
-        final ToggleGroup buttonGroup = new ToggleGroup();
+        ToggleGroup buttonGroup = new ToggleGroup();
         for (ToggleButton tb : toggleButtons){
             tb.setToggleGroup(buttonGroup);
             shapeWindow.getChildren().add(tb);
@@ -104,8 +124,8 @@ public class Project2 extends Application{
                 "Orange" , "Purple", "Brown", "White");
         cbColor.setMaxWidth(90);
         shapeOptions.addRow(4,lbColor, cbColor);
-        Button apply = new Button("APPLY!");
-        shapeOptions.add(apply, 1, 5);
+        Button btnApply = new Button("APPLY!");
+        shapeOptions.add(btnApply, 1, 5);
 
         // Create a display window for the shape drawing
         TitledPane displayArea = new TitledPane();
@@ -149,7 +169,94 @@ public class Project2 extends Application{
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        // BUTTONS! For shape selection
+        buttonGroup.selectedToggleProperty().addListener(
+                (obs, oldToggle,newToggle) -> {
+                    if (newToggle == null) {
+                        shapeDetails.setText("Select a shape from the grid to see details");
+                    }
+                    else{
+                        switch (buttonGroup.getSelectedToggle().getUserData().toString()) {
+
+                            case "Cone" -> {
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/cone.png");
+                                Image image = new Image(file.toURI().toString());
+                                ImageView imageView = new ImageView(image);
+                                imageView.setFitWidth(200);
+                                imageView.setPreserveRatio(true);
+                                displayArea.setContent(imageView);
+                                Cone cone = new Cone();
+                                cone.draw("Cone");
+                            }
+                            case "Cube" -> {
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/cube.png");
+                                Image image = new Image(file.toURI().toString());
+                                ImageView imageView = new ImageView(image);
+                                imageView.setFitWidth(200);
+                                imageView.setPreserveRatio(true);
+                                displayArea.setContent(imageView);
+                            }
+                            case "Sphere" -> {
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/sphere.png");
+                                Image image = new Image(file.toURI().toString());
+                                ImageView imageView = new ImageView(image);
+                                imageView.setFitWidth(200);
+                                imageView.setPreserveRatio(true);
+                                displayArea.setContent(imageView);
+                            }
+                            case "Cylinder" -> {
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/cylinder.png");
+                                Image image = new Image(file.toURI().toString());
+                                ImageView imageView = new ImageView(image);
+                                imageView.setFitWidth(150);
+                                imageView.setPreserveRatio(true);
+                                displayArea.setContent(imageView);
+                            }
+                            case "Torus" -> {
+                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project1/src/images/torus.png");
+                                Image image = new Image(file.toURI().toString());
+                                ImageView imageView = new ImageView(image);
+                                imageView.setFitWidth(200);
+                                imageView.setPreserveRatio(true);
+                                displayArea.setContent(imageView);
+                            }
+                            case "Square" -> {
+                                displayArea.setContent(new javafx.scene.shape.Rectangle(100, 100));
+
+                            }
+                            case "Circle" -> {
+                                displayArea.setContent(new javafx.scene.shape.Circle(50));
+                            }
+                            case "Rectangle" -> {
+                                displayArea.setContent(new javafx.scene.shape.Rectangle(200, 100));
+
+                            }
+                            case "Triangle" -> {
+                                displayArea.setContent(new javafx.scene.shape.Polygon(
+                                        150, 100,
+                                        100, 200,
+                                        200, 200));
+                            }
+                            default -> {
+                                shapeDetails.setText("Please select a Shape.");
+                            }
+                        }
+                    }
+                }
+        );
+
+        // Apply button logic
+        btnApply.setOnAction((ActionEvent e) -> {
+
+
+
+        });
+
+
     }
+
+
 
 
     public static void main(String[] args) {

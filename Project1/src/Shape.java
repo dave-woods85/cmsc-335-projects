@@ -20,4 +20,8 @@ public class Shape {
     public int getNumberOfDimensions() {
         return numberOfDimensions;
     }
+
+    public void draw(String shape){
+
+    }
 }
