@@ -15,12 +15,26 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.io.File;
 
+/*
+David Woods
+CMSC335
+5 Nov 2026
+Project 2
+
+This serves as the GUI creator for the Shape Maker application. This class handles the
+creation of the GUI, button/textfield handling, and object drawing.
+
+The directory for each image file will need to be updated to your own directory.
+
+ */
 public class Project2 extends Application{
+    // Correct the file directory for each user
+    String fileDir = System.getProperty("user.dir");
 
     //Setup for GUI, buttons and events
     public void start(Stage primaryStage) {
 
-        //Create a grid Pane
+        //Create a Grid Pane to organize the rest of the frames
         GridPane pane = new GridPane();
         pane.setPadding(new Insets(0));
         pane.setPrefSize(800, 500);
@@ -28,7 +42,7 @@ public class Project2 extends Application{
         pane.setMaxSize(800, 500);
         pane.setHgap(0);
         pane.setVgap(0);
-        pane.setGridLinesVisible(true);
+        pane.setGridLinesVisible(false);
 
         // Create a TilePane for the shape buttons
         TitledPane shapeButtonPane = new TitledPane();
@@ -152,7 +166,7 @@ public class Project2 extends Application{
         pane.add(shapeDetailsPane, 1, 1);
         shapeDetailsPane.setContent(shapeDetails);
 
-        //Create Column constraints so the columns cannot be crushed
+        //Create Column constraints so the columns in the GridPane cannot be crushed
         ColumnConstraints column0 = new ColumnConstraints(300);
         ColumnConstraints column1 = new ColumnConstraints(400);
         pane.getColumnConstraints().addAll(column0, column1);
@@ -164,7 +178,7 @@ public class Project2 extends Application{
         Scene scene = new Scene(pane);
 
         //Set up the window and display the scene
-        primaryStage.setTitle("Shape Display");
+        primaryStage.setTitle("Shape Maker");
         primaryStage.setMaxHeight(600);
         primaryStage.setMaxWidth(700);
         primaryStage.setMinHeight(600);
@@ -176,19 +190,20 @@ public class Project2 extends Application{
         // BUTTONS! For shape selection and applying attributes
         btnApply.setOnAction(
                 (ActionEvent e) -> {
+                    // Reset the status of the text fields and combo box
                     tfAtt1.setDisable(false);
                     tfAtt2.setDisable(false);
                     tfAtt3.setDisable(false);
                     tfAtt4.setDisable(false);
                     cbColor.setDisable(false);
-                    if (e == null) {
+                    if (e == null) { // Catch null pointer
                         shapeDetails.setText("Select a shape from the grid to see details");
                     }
-                    else{
+                    else{ // Instructions for each shape selected
                         switch (buttonGroup.getSelectedToggle().getUserData().toString()) {
 
-                            case "Cone" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/cone.png");
+                            case "Cone" -> { // Uses an image file
+                                File file = new File(fileDir + "/Project2/src/images/cone.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);
@@ -212,9 +227,10 @@ public class Project2 extends Application{
                                 shapeDetails.setText("This is a cone with radius " + cone.getRadius() +
                                         " and height " + cone.getHeight() + " with a volume of " +
                                         (Math.round(cone.getVolume())*100.0)/100.0 );
+
                             }
                             case "Cube" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/cube.png");
+                                File file = new File(fileDir + "/Project2/src/images/cube.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);
@@ -237,7 +253,7 @@ public class Project2 extends Application{
                                         (Math.round(cube.getVolume())*100.0)/100.0 );
                             }
                             case "Sphere" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/sphere.png");
+                                File file = new File(fileDir + "/Project2/src/images/sphere.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);
@@ -260,7 +276,7 @@ public class Project2 extends Application{
                                         (Math.round(sphere.getVolume())*100.0)/100.0 );
                             }
                             case "Cylinder" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/cylinder.png");
+                                File file = new File(fileDir + "/Project2/src/images/cylinder.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(150);
@@ -286,7 +302,7 @@ public class Project2 extends Application{
                                         (Math.round(cylinder.getVolume())*100.0)/100.0 );
                             }
                             case "Torus" -> {
-                                File file = new File("/Users/dave/IdeaProjects/CMSC_335/Project2/src/images/torus.png");
+                                File file = new File(fileDir + "/Project2/src/images/torus.png");
                                 Image image = new Image(file.toURI().toString());
                                 ImageView imageView = new ImageView(image);
                                 imageView.setFitWidth(200);

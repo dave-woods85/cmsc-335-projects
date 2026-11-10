@@ -1,15 +1,12 @@
 import java.util.Scanner;
-
 /*
 David Woods
 CMSC335
-24 Oct 2026
-Project 1
-Triangle.java
+5 Nov 2026
+Project 2
 
-This is a class that creates a triangle object with 3 sides and area. There is a special printout
-for an equilateral triangle detected.
-
+This triangle class has been updated to support the vertices calculation when drawing
+a triangle from the length of 3 sides and returns a list of vertices to the Polygon class.
  */
 
 public class Triangle extends TwoDimensionalShape{
