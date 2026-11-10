@@ -431,10 +431,9 @@ public class Project2 extends Application{
                     }
                 }
         );
-
-
-
     }
+
+    // Returns the correct Color class field for the combobox
     public Color getColor(String color) {
         switch (color) {
             case "White" -> {
